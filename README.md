@@ -1,12 +1,12 @@
 # Vault AppRole Terraform module
 
-Terraform module which creates Vault AppRole
+Terraform module which creates Vault AppRole and Kubernetes secret
 
 ## Usage
 
 ```hcl
 module "approle" {
-  source = "github.com/makezbs/terraform-vault-approle.git"
+  source = "github.com/vleskiv/terraform-vault-approle.git?ref=task"
 
   role_name   = "mySuperApp"
   policy_name = "mySuperApp"
