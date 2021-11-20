@@ -14,7 +14,7 @@ locals {
   secret_ns   = "default"
   secret_name = "mysecret"
 #  secret_keys = concat(aws_instance.blue.*.id, aws_instance.green.*.id)
-  secret_key_value = (
+  value_secretid = (
     length(vault_approle_auth_backend_role_secret_id.this) > 0 ?
     vault_approle_auth_backend_role_secret_id.this.0.secret_id :
     null
@@ -29,7 +29,7 @@ resource "kubernetes_secret" "my_secret" {
   type = "Opaque"
   data = {
     (var.key_name_roleid)   = vault_approle_auth_backend_role.this.role_id
-    (var.key_name_secretid) = local.secret_key_value
+    (var.key_name_secretid) = local.value_secretid
   }
   depends_on = [vault_approle_auth_backend_role.this]
 }
