@@ -1,10 +1,10 @@
-variable "role_key_name" {
+variable "key_name_secretid" {
   description = "secret id: name of the key to be used in kubernetes secret"
   type        = string
   default     = "secretid"
 }
 
-variable "secret_key_name" {
+variable "key_name_roleid" {
   description = "role id: name of the key to be used in kubernetes secret"
   type        = string
   default     = "roleid"
@@ -13,6 +13,12 @@ variable "secret_key_name" {
 locals {
   secret_ns   = "default"
   secret_name = "mysecret"
+#  secret_keys = concat(aws_instance.blue.*.id, aws_instance.green.*.id)
+  secret_key_value = (
+    length(vault_approle_auth_backend_role_secret_id.this) > 0 ?
+    vault_approle_auth_backend_role_secret_id.this.0.secret_id :
+    null
+  )
 }
 
 resource "kubernetes_secret" "my_secret" {
@@ -22,7 +28,17 @@ resource "kubernetes_secret" "my_secret" {
   }
   type = "Opaque"
   data = {
-    var.role_key_name = vault_approle_auth_backend_role.this.role_id
+    (var.key_name_roleid)   = vault_approle_auth_backend_role.this.role_id
+    (var.key_name_secretid) = local.secret_key_value
   }
   depends_on = [vault_approle_auth_backend_role.this]
 }
+
+
+#  dynamic "secret_key" {
+#    for_each = [{"name" : "key1",  "value" : "val1"},{"name" : "key2",  "value" : "val2"}]
+#    content {
+#      secret_key.name = secret_key.value
+#    }
+
+
