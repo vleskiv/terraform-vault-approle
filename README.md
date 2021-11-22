@@ -84,12 +84,12 @@ terraform apply tfplan
 | token\_max\_ttl | The maximum lifetime for generated tokens in number of seconds. Its current value will be referenced at renewal time. | `number` | `0` | no |
 | token\_num\_uses | The period, if any, in number of seconds to set on the token. | `number` | `0` | no |
 | token\_period | If set, indicates that the token generated using this role should never expire. The token should be renewed within the duration specified by this value. At each renewal, the token's TTL will be set to the value of this field. Specified in seconds. | `number` | `0` | no |
-| name_roleid | name of the key to be used in kubernetes secret | `string` | `secretid` | no |
-| name_secretid | name of the key to be used in kubernetes secret | `string` | `secretid` | no |
-| template_path | Path to the template file | `string` | `` | yes |
-| vault_addr | Vault address e.g. `http://localhost:8200` | `string` | `` | yes |
-| secret_name | Name of the Kubernetes secret | `string` | `mysecret` | no |
-| secret_ns | Name of the kubernetes namespace | `string` | `default` | no |
+| name\_roleid | name of the key to be used in kubernetes secret | `string` | `secretid` | no |
+| name\_secretid | name of the key to be used in kubernetes secret | `string` | `secretid` | no |
+| template\_path | Path to the template file | `string` | `` | yes |
+| vault\_addr | Vault address e.g. `http://localhost:8200` | `string` | `` | yes |
+| secret\_name | Name of the Kubernetes secret | `string` | `mysecret` | no |
+| secret\_ns | Name of the kubernetes namespace | `string` | `default` | no |
 
 
 ## Outputs
