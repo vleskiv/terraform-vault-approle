@@ -1,4 +1,4 @@
-# Vault AppRole Terraform module
+# Terraform module
 
 Terraform module forked from [terraform-vault-approle](https://github.com/makezbs/terraform-vault-approle)  which creates Vault AppRole. In this fork added creation of Kubernetes secret.
 
