@@ -1,12 +1,12 @@
 # Vault AppRole Terraform module
 
-Terraform module which creates Vault AppRole
+Terraform module which creates Vault AppRole and Kubernetes secret
 
 ## Usage
 
 ```hcl
 module "approle" {
-  source = "github.com/makezbs/terraform-vault-approle.git"
+  source = "github.com/vleskiv/terraform-vault-approle.git"
 
   role_name   = "mySuperApp"
   policy_name = "mySuperApp"
@@ -15,6 +15,10 @@ module "approle" {
     capabilities = ["read","list","update"]
   }
   EOT
+
+  create_secret_id = false
+  template_path   = "templates/secret-value.json.tpl"
+  vault_addr = var.vault_addr
 }
 ```
 
@@ -54,14 +58,16 @@ terraform apply tfplan
 
 | Name | Version |
 |------|---------|
-| terraform | ~> 0.12.20 |
+| terraform | 0.14.4 |
 | vault | ~> 2.8 |
+| kubernetes |   |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | vault | ~> 2.8 |
+| kubernetes |   |
 
 ## Inputs
 
@@ -78,6 +84,13 @@ terraform apply tfplan
 | token\_max\_ttl | The maximum lifetime for generated tokens in number of seconds. Its current value will be referenced at renewal time. | `number` | `0` | no |
 | token\_num\_uses | The period, if any, in number of seconds to set on the token. | `number` | `0` | no |
 | token\_period | If set, indicates that the token generated using this role should never expire. The token should be renewed within the duration specified by this value. At each renewal, the token's TTL will be set to the value of this field. Specified in seconds. | `number` | `0` | no |
+| name\_roleid | name of the key to be used in kubernetes secret | `string` | `secretid` | no |
+| name\_secretid | name of the key to be used in kubernetes secret | `string` | `secretid` | no |
+| template\_path | Path to the template file | `string` | `` | yes |
+| vault\_addr | Vault address e.g. `http://localhost:8200` | `string` | `` | yes |
+| secret\_name | Name of the Kubernetes secret | `string` | `mysecret` | no |
+| secret\_ns | Name of the kubernetes namespace | `string` | `default` | no |
+
 
 ## Outputs
 

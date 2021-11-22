@@ -60,3 +60,39 @@ variable "create_secret_id" {
   description = "Create secret_id"
   default     = false
 }
+
+# Kube secret variables
+variable "name_secretid" {
+  description = "secret id: name of the key to be used in kubernetes secret"
+  type        = string
+  default     = "secretid"
+}
+
+variable "name_roleid" {
+  description = "role id: name of the key to be used in kubernetes secret"
+  type        = string
+  default     = "roleid"
+}
+variable "template_path" {
+  description = "Path to the template file"
+  type        = string
+  default     = ""
+}
+
+variable "vault_addr" {
+  description = "Vault address"
+  type        = string
+  default     = ""
+}
+
+variable "secret_name" {
+  description = "Name of the Kubernetes secret"
+  type        = string
+  default     = "mysecret"
+}
+
+variable "secret_ns" {
+  description = "Name of the kubernetes namespace"
+  type        = string
+  default     = "default"
+}
